@@ -14,6 +14,19 @@ class Question
     private $Question;
     private $Responses;
 
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->add('name');
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => Tag::class,
+        ));
+    }
+
     /**
      * @return array
      */
@@ -21,19 +34,12 @@ class Question
     {
         return $this->Responses;
     }
-
     /**
      * @param array $Responses
      */
     public function setResponses($Responses)
     {
         $this->Responses = $Responses;
-    }
-
-    function __construct()
-    {
-        $this->Question = "";
-        $this->Responses = [];
     }
 
     /**
@@ -43,7 +49,6 @@ class Question
     {
         return $this->Question;
     }
-
     /**
      * @param mixed $Question
      */
