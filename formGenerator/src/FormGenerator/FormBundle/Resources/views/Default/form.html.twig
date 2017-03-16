@@ -1,0 +1,19 @@
+{% block content %}
+    <div id="listeQuestion">
+        <ul id="liste">
+
+        </ul>
+    </div>
+    <form>
+            <label>
+                Ajouter question
+            </label>
+            <input type="text" placeholder="Question" id="question"><br>
+            <label>
+                Reponse :<br>
+            </label>
+            <input type="text" placeholder="Reponse" id="reponse">
+            <input type="submit" value="+" id="addQuestion"><br>
+            <input type="submit" value="Valider Question(s)" id="validate">
+    </form>
+{% endblock %}
