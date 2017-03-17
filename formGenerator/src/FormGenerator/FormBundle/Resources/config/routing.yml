@@ -1,3 +1,7 @@
 form_generator_form_homepage:
     path:     /
     defaults: { _controller: FormGeneratorFormBundle:Default:index }
+
+form_generator_form_addQuestion:
+    path:     /{id}
+    defaults: { _controller: FormGeneratorFormBundle:Default:addQuestion }

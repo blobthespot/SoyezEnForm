@@ -39,6 +39,12 @@ class Topic
         return $this->id;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
     /**
      * Set name
      *
@@ -63,4 +69,3 @@ class Topic
         return $this->name;
     }
 }
-

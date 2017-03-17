@@ -125,4 +125,3 @@ class Answer
         return $this->isCorrect;
     }
 }
-

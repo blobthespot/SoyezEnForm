@@ -1,19 +1,109 @@
-{% block content %}
-    {{ form(form) }}
-    <div id="listeQuestion">
-        <ul id="liste">
-        </ul>
+{% extends 'master.html.twig' %}
+{% block contents %}
+    <div class="col-md-12 question">
+        {{ form_start(form) }}
+        <section class="form-group">
+            {{ form_label(form.Topic) }}
+            {{ form_widget(form.Topic) }}
+        </section>
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
     </div>
-    <form>
-            <label>
-                Ajouter question
-            </label>
-            <input type="text" placeholder="Question" id="question"><br>
-            <label>
-                Reponse :<br>
-            </label>
-            <input type="text" placeholder="Reponse" id="reponse">
-            <input type="submit" value="+" id="addQuestion"><br>
-            <input type="submit" value="Valider Question(s)" id="validate">
-    </form>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var $questionsContainer = $('div#form_Topic_questions');
+            var $addQuestion = $('<a href="#" id="add_question," class="btn btn-default">Ajouter une question</a>');
+
+            $questionsContainer.append($addQuestion);
+
+            $addQuestion.click(function(e) {
+                addQuestion($questionsContainer);
+                e.preventDefault();
+                return false;
+            });
+
+            var index = $questionsContainer.find(':input').length;
+
+            if (index == 0) {
+                addQuestion($container);
+            }
+            else {
+                $container.children('div').each(function() {
+
+                    addDeleteLink($(this));
+
+                });
+
+            }
+
+            function addQuestion($container) {
+                var index = $questionsContainer.find(':input').length;
+                var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Question').replace(/__name__/g, index));
+                addDeleteLink($prototype);
+                $container.append($prototype);
+
+                //Ajout des réponses dans la question:
+                var $answerContainer = $('#form_Topic_questions_'+ index +'_answers');
+                var $addAnswer = $('<a href="#" id="add_answer" class="btn btn-default">Ajouter une réponse</a>');
+                $answerContainer.append($addAnswer);
+
+                $addAnswer.click(function(e) {
+                    addAnswer($answerContainer);
+                    e.preventDefault();
+                    return false;
+                });
+
+                var index = $answerContainer.find(':input').length;
+
+                if (index == 0) {
+                    addAnswer($answerContainer);
+                }
+                else {
+                    $answerContainer.children('div').each(function() {
+                        addDeleteLink($(this));
+                    });
+                }
+
+
+            }
+            function addDeleteLink($prototype) {
+                $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+                $prototype.append($deleteLink);
+
+                $deleteLink.click(function(e) {
+                    $prototype.remove();
+                    e.preventDefault();
+
+                    return false;
+
+                });
+
+            }
+
+            function addAnswer($container) {
+                var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Réponse')
+                    .replace(/__name__/g, index));
+                addDeleteLink($prototype);
+                $container.append($prototype);
+            }
+
+            function addDeleteLink($prototype) {
+                $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+                $prototype.append($deleteLink);
+
+                $deleteLink.click(function(e) {
+                    $prototype.remove();
+                    e.preventDefault();
+
+                    return false;
+
+                });
+
+            }
+        });
+
+    </script>
+
 {% endblock %}

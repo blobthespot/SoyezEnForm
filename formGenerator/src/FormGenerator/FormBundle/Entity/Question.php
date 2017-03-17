@@ -125,4 +125,3 @@ class Question
         return $this->isMultiple;
     }
 }
-

@@ -1,0 +1,58 @@
+{% extends 'master.html.twig' %}
+{% block contents %}
+    <h1>Ta mère</h1>
+    <div class="col-md-12 topic">
+        {{ form(form) }}
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var $container = $('div#form_Questions_answers');
+            var $addLink = $('<a href="#" id="add_answer" class="btn btn-default">Ajouter une réponse</a>');
+
+            $container.append($addLink);
+
+            $addLink.click(function(e) {
+                addAnswer($container);
+                e.preventDefault();
+                return false;
+            });
+
+            var index = $container.find(':input').length;
+
+            if (index == 0) {
+                addAnswer($container);
+            }
+            else {
+                $container.children('div').each(function() {
+                    addDeleteLink($(this));
+                });
+            }
+
+
+            function addAnswer($container) {
+                var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Réponse')
+                    .replace(/__name__/g, index));
+                addDeleteLink($prototype);
+                $container.append($prototype);
+            }
+
+            function addDeleteLink($prototype) {
+                $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+                $prototype.append($deleteLink);
+
+                $deleteLink.click(function(e) {
+                    $prototype.remove();
+                    e.preventDefault();
+
+                    return false;
+
+                });
+
+            }
+
+        });
+
+    </script>
+{% endblock %}

@@ -2,26 +2,37 @@
 
 namespace FormGenerator\FormBundle\Controller;
 
-use FormGenerator\FormBundle\Entity\Question;
-use FormGenerator\FormBundle\Models\Form;
-use FormGenerator\FormBundle\Models\Reponse;
+use FormGenerator\FormBundle\Entity\Topic;
+use FormGenerator\FormBundle\Form\QuestionType;
+use FormGenerator\FormBundle\Form\TopicType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function indexAction(){
-        $formulaire = new Form();
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function indexAction(Request $request){
+    $topic = new Topic();
 
-        $form = $this->createFormBuilder($formulaire)
-            ->add('Name', TextType::class)
-            ->add('Questions', Question::class)
-            ->add('save', SubmitType::class, array('label' => "J/'aime la bite" ))
+    $form = $this->createFormBuilder()
+        ->add('Topic', TopicType::class)
+        ->getForm();
+
+    return $this->render('FormGeneratorFormBundle:Default:form.html.twig',array(
+        'form' => $form->createView()
+    ));
+}
+
+    public function addQuestionAction(Request $request){
+        $form = $this->createFormBuilder()
+            ->add('Questions', QuestionType::class)
             ->getForm();
 
-        return $this->render('FormGeneratorFormBundle:Default:form.html.twig',array(
+
+        return $this->render('FormGeneratorFormBundle:Default:questionsForm.html.twig',array(
             'form' => $form->createView()
         ));
     }
