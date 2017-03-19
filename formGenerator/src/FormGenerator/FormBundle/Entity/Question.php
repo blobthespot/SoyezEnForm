@@ -43,7 +43,7 @@ class Question
     private $isMultiple;
 
     /**
-     * @ORM\OneToMany(targetEntity="answer", mappedBy="question")
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question")
      */
     private $answers;
 
@@ -153,11 +153,11 @@ class Question
     /**
      * Add answer
      *
-     * @param \FormGenerator\FormBundle\Entity\answer $answer
+     * @param \FormGenerator\FormBundle\Entity\Answer $answer
      *
      * @return Question
      */
-    public function addAnswer(\FormGenerator\FormBundle\Entity\answer $answer)
+    public function addAnswer(\FormGenerator\FormBundle\Entity\Answer $answer)
     {
         $this->answers[] = $answer;
 
@@ -167,9 +167,9 @@ class Question
     /**
      * Remove answer
      *
-     * @param \FormGenerator\FormBundle\Entity\answer $answer
+     * @param \FormGenerator\FormBundle\Entity\Answer $answer
      */
-    public function removeAnswer(\FormGenerator\FormBundle\Entity\answer $answer)
+    public function removeAnswer(\FormGenerator\FormBundle\Entity\Answer $answer)
     {
         $this->answers->removeElement($answer);
     }
