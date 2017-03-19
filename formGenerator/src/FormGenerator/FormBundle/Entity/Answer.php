@@ -22,11 +22,10 @@ class Answer
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="question_id", type="integer", unique=true)
+     * @ORM\ManyToOne(targetEntity="Question")
+     * @ORM\JoinColumn(name="question_id", referencedColumnName="id", onDelete="CASCADE")
      */
-    private $questionId;
+    private $question;
 
     /**
      * @var string
@@ -51,30 +50,6 @@ class Answer
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set questionId
-     *
-     * @param integer $questionId
-     *
-     * @return Answer
-     */
-    public function setQuestionId($questionId)
-    {
-        $this->questionId = $questionId;
-
-        return $this;
-    }
-
-    /**
-     * Get questionId
-     *
-     * @return int
-     */
-    public function getQuestionId()
-    {
-        return $this->questionId;
     }
 
     /**
@@ -123,5 +98,29 @@ class Answer
     public function getIsCorrect()
     {
         return $this->isCorrect;
+    }
+
+    /**
+     * Set question
+     *
+     * @param \FormGenerator\FormBundle\Entity\Question $question
+     *
+     * @return Answer
+     */
+    public function setQuestion(\FormGenerator\FormBundle\Entity\Question $question = null)
+    {
+        $this->question = $question;
+
+        return $this;
+    }
+
+    /**
+     * Get question
+     *
+     * @return \FormGenerator\FormBundle\Entity\Question
+     */
+    public function getQuestion()
+    {
+        return $this->question;
     }
 }

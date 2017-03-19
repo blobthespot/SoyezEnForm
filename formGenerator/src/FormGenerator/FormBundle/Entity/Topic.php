@@ -3,7 +3,7 @@
 namespace FormGenerator\FormBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Topic
  *
@@ -28,6 +28,31 @@ class Topic
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Question", mappedBy="question",cascade={"persist"}, orphanRemoval=true, fetch="EAGER")
+     */
+    private $questions;
+
+    public function __construct()
+    {
+        $this->questions = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuestions()
+    {
+        return $this->questions;
+    }
+
+    /**
+     * @param mixed $questions
+     */
+    public function setQuestions($questions)
+    {
+        $this->questions = $questions;
+    }
 
     /**
      * Get id
@@ -45,6 +70,7 @@ class Topic
 
         return $this;
     }
+
     /**
      * Set name
      *
@@ -67,5 +93,29 @@ class Topic
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Add question
+     *
+     * @param \FormGenerator\FormBundle\Entity\Question $question
+     *
+     * @return Topic
+     */
+    public function addQuestion(\FormGenerator\FormBundle\Entity\Question $question)
+    {
+        $this->questions[] = $question;
+
+        return $this;
+    }
+
+    /**
+     * Remove question
+     *
+     * @param \FormGenerator\FormBundle\Entity\Question $question
+     */
+    public function removeQuestion(\FormGenerator\FormBundle\Entity\Question $question)
+    {
+        $this->questions->removeElement($question);
     }
 }

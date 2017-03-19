@@ -3,6 +3,7 @@
 namespace FormGenerator\FormBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Question
@@ -29,12 +30,11 @@ class Question
     private $question;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="topic_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="Topic")
+     * @ORM\JoinColumn(name="topic_id", referencedColumnName="id", onDelete="CASCADE")
      */
-    private $topicId;
-
+    private $topic;
+    
     /**
      * @var bool
      *
@@ -43,7 +43,7 @@ class Question
     private $isMultiple;
 
     /**
-     * @ORM\OneToMany(targetEntity="answer", mappedBy="question")
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="answer",cascade={"persist"}, orphanRemoval=true, fetch="EAGER")
      */
     private $answers;
 
@@ -172,5 +172,29 @@ class Question
     public function removeAnswer(\FormGenerator\FormBundle\Entity\answer $answer)
     {
         $this->answers->removeElement($answer);
+    }
+
+    /**
+     * Set topic
+     *
+     * @param \FormGenerator\FormBundle\Entity\Topic $topic
+     *
+     * @return Question
+     */
+    public function setTopic(\FormGenerator\FormBundle\Entity\Topic $topic = null)
+    {
+        $this->topic = $topic;
+
+        return $this;
+    }
+
+    /**
+     * Get topic
+     *
+     * @return \FormGenerator\FormBundle\Entity\Topic
+     */
+    public function getTopic()
+    {
+        return $this->topic;
     }
 }

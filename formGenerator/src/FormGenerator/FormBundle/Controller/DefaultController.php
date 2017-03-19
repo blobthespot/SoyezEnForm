@@ -18,22 +18,30 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request){
         $topic = new Topic();
-        $questions = [];
-        $answer = [];
 
-        $form = $this->createFormBuilder()
+        $form = $this->createForm(TopicType::class, $topic);
+        $form->handleRequest($request);
+
+        /*$form = $this->createFormBuilder()
             ->add('Topic', TopicType::class)
-            ->add('Question', CollectionType::class, array(
-                'entry_type'         => QuestionType::class,
-                'allow_add'    => true,
-                'allow_delete' => true
-            ))
             ->add('save', SubmitType::class)
-            ->getForm();
+            ->getForm();*/
+
         if ($request->isMethod('POST')) {
-                $a =  $form->handleRequest($request);
-                var_dump($_POST['form']);
-                return $this->redirect($this->generateUrl('form_generator_form_addQuestion', array('values' => var_dump($a))));
+            $em = $this->getDoctrine()->getEntityManager();
+
+            foreach ($topic->getQuestions() as $question) {
+                $valium = $question->getAnswers();
+                foreach ($question->getAnswers() as $answer){
+                    $answer->setQuestion($question);
+                }
+
+                $question->setTopic($topic);
+            }
+
+            $em->persist($topic);
+            $em->flush();
+            return $this->redirect($this->generateUrl('form_generator_form_addQuestion'), array('value' => var_dump($_POST)));
         }
         return $this->render('FormGeneratorFormBundle:Default:form.html.twig',array('form' => $form->createView()));
 }
