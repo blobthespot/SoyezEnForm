@@ -1,0 +1,31 @@
+{% block body %}
+    <form>
+    <div>
+        <ul>
+            {% for resultat in res %}
+            <li>
+                    <div class="questionName" id="{{ resultat.question.id }}">{{ resultat.question.question }}</div>
+                        {% for rep in resultat.reponses %}
+                            <span class="input-groupd-addon">
+                                    {% if resultat.question.isMultiple %}
+                                        <div class="form-check form-check-inline">
+                                          <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" value="option1"> {{ rep.answer }}
+                                          </label>
+                                        </div>
+                            {% else %}
+                                        <div class="form-check form-check-inline">
+                                          <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" value="option1"> {{ rep.answer }}
+                                          </label>
+                                        </div>
+                                    {% endif %}
+                            </span>
+                        {% endfor %}
+            </li>
+            {%  endfor %}
+        </ul>
+    </div>
+        <input type="submit" value="CheckYourPrivilege">
+    </form>
+{% endblock %}

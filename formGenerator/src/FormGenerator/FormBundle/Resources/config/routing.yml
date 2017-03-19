@@ -5,3 +5,9 @@ form_generator_form_homepage:
 form_generator_form_addQuestion:
     path:     /{id}
     defaults: { _controller: FormGeneratorFormBundle:Default:addQuestion }
+
+form_generator_form_afficherTopic:
+    path:     /Topic/{id}
+    defaults: { _controller: FormGeneratorFormBundle:Default:afficherTopic }
+    requirements:
+        id: '\d+'

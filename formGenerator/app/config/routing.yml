@@ -1,7 +1,6 @@
 form_generator_form:
     resource: "@FormGeneratorFormBundle/Resources/config/routing.yml"
     prefix:   /form
-
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
