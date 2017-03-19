@@ -6,13 +6,12 @@
             {{ form_label(form.Topic) }}
             {{ form_widget(form.Topic) }}
         </section>
-        {{ form_widget(form) }}
         {{ form_end(form) }}
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            var $questionsContainer = $('div#form_Topic_questions');
+            var $questionsContainer = $('div#form_Question');
             var $addQuestion = $('<a href="#" id="add_question," class="btn btn-default">Ajouter une question</a>');
 
             $questionsContainer.append($addQuestion);
@@ -44,7 +43,7 @@
                 $container.append($prototype);
 
                 //Ajout des réponses dans la question:
-                var $answerContainer = $('#form_Topic_questions_'+ index +'_answers');
+                var $answerContainer = $('#form_Question_'+ index +'_answers');
                 var $addAnswer = $('<a href="#" id="add_answer" class="btn btn-default">Ajouter une réponse</a>');
                 $answerContainer.append($addAnswer);
 

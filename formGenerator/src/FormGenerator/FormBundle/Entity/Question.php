@@ -42,6 +42,31 @@ class Question
      */
     private $isMultiple;
 
+    /**
+     * @ORM\OneToMany(targetEntity="answer", mappedBy="question")
+     */
+    private $answers;
+
+    public function __construct()
+    {
+        $this->answers = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAnswers()
+    {
+        return $this->answers;
+    }
+
+    /**
+     * @param mixed $answers
+     */
+    public function setAnswers($answers)
+    {
+        $this->answers = $answers;
+    }
 
     /**
      * Get id
@@ -123,5 +148,29 @@ class Question
     public function getIsMultiple()
     {
         return $this->isMultiple;
+    }
+
+    /**
+     * Add answer
+     *
+     * @param \FormGenerator\FormBundle\Entity\answer $answer
+     *
+     * @return Question
+     */
+    public function addAnswer(\FormGenerator\FormBundle\Entity\answer $answer)
+    {
+        $this->answers[] = $answer;
+
+        return $this;
+    }
+
+    /**
+     * Remove answer
+     *
+     * @param \FormGenerator\FormBundle\Entity\answer $answer
+     */
+    public function removeAnswer(\FormGenerator\FormBundle\Entity\answer $answer)
+    {
+        $this->answers->removeElement($answer);
     }
 }
