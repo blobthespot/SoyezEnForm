@@ -1,0 +1,23 @@
+{
+  "name": "formGenerator",
+  "homepage": "https://github.com/blobthespot/SoyezEnForm",
+  "authors": [
+    "Florian Bailly <florian.bailly@gmx.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.0"
+  }
+}

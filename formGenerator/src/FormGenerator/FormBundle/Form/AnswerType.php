@@ -13,7 +13,11 @@ class AnswerType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+<<<<<<< HEAD
         $builder->add('answer')->add('isCorrect');
+=======
+        $builder->add('questionId')->add('answer')->add('isCorrect');
+>>>>>>> 7d5582e4403cf407969f8095d5c7fe88f6dddb6a
     }
     
     /**

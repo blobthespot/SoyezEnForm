@@ -3,8 +3,11 @@
 namespace FormGenerator\FormBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+<<<<<<< HEAD
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+=======
+>>>>>>> 7d5582e4403cf407969f8095d5c7fe88f6dddb6a
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,6 +18,7 @@ class QuestionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+<<<<<<< HEAD
         $builder
             ->add('question')
             ->add('isMultiple')
@@ -27,6 +31,11 @@ class QuestionType extends AbstractType
             ));
 
     }
+=======
+        $builder->add('question')->add('topicId')->add('isMultiple');
+    }
+    
+>>>>>>> 7d5582e4403cf407969f8095d5c7fe88f6dddb6a
     /**
      * {@inheritdoc}
      */

@@ -43,7 +43,11 @@ class Question
     private $isMultiple;
 
     /**
+<<<<<<< HEAD
      * @ORM\OneToMany(targetEntity="Answer", mappedBy="answer",cascade={"persist"}, orphanRemoval=true, fetch="EAGER")
+=======
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question")
+>>>>>>> 7d5582e4403cf407969f8095d5c7fe88f6dddb6a
      */
     private $answers;
 
@@ -153,11 +157,11 @@ class Question
     /**
      * Add answer
      *
-     * @param \FormGenerator\FormBundle\Entity\answer $answer
+     * @param \FormGenerator\FormBundle\Entity\Answer $answer
      *
      * @return Question
      */
-    public function addAnswer(\FormGenerator\FormBundle\Entity\answer $answer)
+    public function addAnswer(\FormGenerator\FormBundle\Entity\Answer $answer)
     {
         $this->answers[] = $answer;
 
@@ -167,9 +171,9 @@ class Question
     /**
      * Remove answer
      *
-     * @param \FormGenerator\FormBundle\Entity\answer $answer
+     * @param \FormGenerator\FormBundle\Entity\Answer $answer
      */
-    public function removeAnswer(\FormGenerator\FormBundle\Entity\answer $answer)
+    public function removeAnswer(\FormGenerator\FormBundle\Entity\Answer $answer)
     {
         $this->answers->removeElement($answer);
     }
