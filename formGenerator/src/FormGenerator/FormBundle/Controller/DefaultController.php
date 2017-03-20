@@ -6,8 +6,6 @@ use FormGenerator\FormBundle\Entity\Topic;
 use FormGenerator\FormBundle\Form\QuestionType;
 use FormGenerator\FormBundle\Form\TopicType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
@@ -21,11 +19,6 @@ class DefaultController extends Controller
 
         $form = $this->createForm(TopicType::class, $topic);
         $form->handleRequest($request);
-
-        /*$form = $this->createFormBuilder()
-            ->add('Topic', TopicType::class)
-            ->add('save', SubmitType::class)
-            ->getForm();*/
 
         if ($request->isMethod('POST')) {
             $em = $this->getDoctrine()->getEntityManager();

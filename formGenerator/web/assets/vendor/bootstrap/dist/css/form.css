@@ -1,20 +1,31 @@
-.topic{
+.form-header{
     background: grey;
     padding: 15px;
     border-radius: 10px;
 }
-.topic #form div label{
-    margin-right: 20px;
+.form-header-label{
     font-style: italic;
     font-weight: bold;
     color: black;
-    float: left;
+    text-align: center;
 }
-
-.topic #form div input{
-    width: 75%;
+.form-input-label{
+    color: black;
+    border-radius: 10px;
 }
-
+.form-questions-label{
+    color: black;
+    text-align: center;
+}
+.form-question{
+    background: grey;
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 10px;
+}
+.wrapper{
+    margin-top: 90px;
+}
 #form div:first-child{
     width: 90%;
     float: left;

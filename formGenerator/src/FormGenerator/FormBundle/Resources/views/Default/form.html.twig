@@ -1,21 +1,27 @@
 {% extends 'master.html.twig' %}
 {% block contents %}
-    <div class="col-md-12 question">
-        {{ form_start(form) }}
-        <section class="form-group">
-            {{ form_start(form) }}
-            {# render the task's only field: description #}
-            {{ form_row(form.name) }}
-            {{ form_end(form) }}
-        </section>
+    <section class="form-group">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        <div class="row form-header">
+            <div class="form-header-label col-md-2">
+                {{ form_label(form.name)}}
+            </div>
+
+            {{ form_widget(form.name, {'attr': {'class': 'form-input-label col-md-10'}}) }}
+        </div>
+        <div class="row form-question">
+            {{ form_label(form.questions, 'Les questions', {'label_attr': {'class': 'form-questions-label col-md-12'}}) }}
+            {{ form_widget(form.questions, {'attr': {'class': 'form-input-label col-md-10'}}) }}
+        </div>
         {{ form_end(form) }}
-<<<<<<< HEAD
-    </div>
+        </section>
+
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             var $questionsContainer = $('div#formgenerator_formbundle_topic_questions');
-            var $addQuestion = $('<a href="#" id="add_question," class="btn btn-default">Ajouter une question</a>');
+            var $addQuestion = $('<a href="#" id="add_question" class="btn btn-default">Ajouter une question</a>');
 
             $questionsContainer.append($addQuestion);
 
@@ -31,6 +37,7 @@
                 addDeleteLink($prototype);
                 $container.append($prototype);
 
+                $questionsContainer.append($prototype);
                 //Ajout des réponses dans la question:
                 var $answerContainer = $('#formgenerator_formbundle_topic_questions_'+ index +'_answers');
 
@@ -42,6 +49,8 @@
                     e.preventDefault();
                     return false;
                 });
+
+                $('#formgenerator_formbundle_topic_questions').append($('#add_question'));
                 }
 
             function addDeleteLink($prototype) {
@@ -86,9 +95,4 @@
             }
         });
     </script>
-=======
-
-        <button id="add_question" class="btn btn-default">Ajouter une question</button>
-    </div>
->>>>>>> 7d5582e4403cf407969f8095d5c7fe88f6dddb6a
 {% endblock %}
