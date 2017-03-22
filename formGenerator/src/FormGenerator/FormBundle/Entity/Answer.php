@@ -39,7 +39,7 @@ class Answer
      *
      * @ORM\Column(name="is_correct", type="boolean")
      */
-    private $isCorrect;
+    private $isCorrect = 0;
 
 
     /**

@@ -2,6 +2,7 @@
 
 namespace FormGenerator\FormBundle\Controller;
 
+use FormGenerator\FormBundle\Entity\Result;
 use Symfony\Component\Form\FormBuilder;
 use FormGenerator\FormBundle\Entity\Topic;
 use FormGenerator\FormBundle\Form\QuestionType;
@@ -60,6 +61,7 @@ class DefaultController extends Controller
 
         //create form
         $form = $this->createFormBuilder();
+        $form->add("Nom",TextType::class);
         foreach ($questions as $question){
             $answers = $question->getAnswers();
             $answersString = [];
@@ -77,37 +79,34 @@ class DefaultController extends Controller
         $form->add("Valider votre formulaire !",SubmitType::class);
         $form= $form->getForm();
         $form->handleRequest($request);
-
+        $result = new Result();
         if ($form->isSubmitted()){
             $note=0;
             foreach ($form->getData() as $AnswerId){
-                $formAnswer = $this->getDoctrine()->getRepository('FormGeneratorFormBundle:Answer')->find($AnswerId);
-                if ($formAnswer->getIsCorrect()){ $note += 1; }
-            }
-            /*for ($i=1;$i<=count($data);$i++){
-                $item = $data[$i];
-                if(is_array($item)){
-                    foreach ($item as $tuple){
-                        $res = $this->getDoctrine()
-                        ->getRepository('FormGeneratorFormBundle:Answer')
-                        ->find($tuple);
-                    if ($res->getIsCorrect()) $note++;
+                if (is_numeric($AnswerId)){
+                    $formAnswer = $this->getDoctrine()->getRepository('FormGeneratorFormBundle:Answer')->find($AnswerId);
+                    if ($formAnswer->getIsCorrect()){ $note += 1; }
                 }
+
             }
-            else
-            {
-                $res = $this->getDoctrine()
-                    ->getRepository('FormGeneratorFormBundle:Answer')
-                    ->find($item);
-                if ($res->getIsCorrect()) $note++;
-            }
-        }*/
+
+            $result->setName($form->getData()["Nom"]);
+            $result->setScore($note);
+            $result->setTopicId($topic);
+
+            $em = $this->getDoctrine()->getManager();
+
+            // tells Doctrine you want to (eventually) save the Product (no queries yet)
+            $em->persist($result);
+
+            // actually executes the queries (i.e. the INSERT query)
+            $em->flush();
+
         return $this->resultatAction($note);
     }
-
-    //END FORM SUBMIT
         return $this->render('FormGeneratorFormBundle:Default:resTopic.html.twig',array(
             "form"=>$form->createView(),
+            var_dump($result)
             //"res"=>$res
         ));
 }
@@ -116,5 +115,14 @@ class DefaultController extends Controller
         return $this->render('FormGeneratorFormBundle:Default:resultat.html.twig',array(
             'note'=>$note
         ));
+    }
+
+    public function allTopicAction(){
+        $allTopic = $this->getDoctrine()->getRepository('FormGeneratorFormBundle:Topic')->findAll();
+        return $this->render('FormGeneratorFormBundle:Default:allTopic.html.twig',array(
+            'topics'=>$allTopic,
+            //var_dump($allTopic)
+        ));
+
     }
 }

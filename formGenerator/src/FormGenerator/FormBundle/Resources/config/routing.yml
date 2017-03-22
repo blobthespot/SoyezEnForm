@@ -2,12 +2,12 @@ form_generator_form_homepage:
     path:     /
     defaults: { _controller: FormGeneratorFormBundle:Default:index }
 
-form_generator_form_addQuestion:
-    path:     /{id}
-    defaults: { _controller: FormGeneratorFormBundle:Default:addQuestion }
-
 form_generator_form_afficherTopic:
     path:     /topic/{id}
     defaults: { _controller: FormGeneratorFormBundle:Default:afficherTopic }
     requirements:
         id: '\d+'
+
+form_generator_form_AllTopic:
+    path:     /alltopic
+    defaults: { _controller: FormGeneratorFormBundle:Default:allTopic }
