@@ -3,5 +3,16 @@ form_generator_form_homepage:
     defaults: { _controller: FormGeneratorFormBundle:Default:index }
 
 form_generator_form_addQuestion:
+<<<<<<< HEAD
     path:     /test
     defaults: { _controller: FormGeneratorFormBundle:Default:addQuestion }
+=======
+    path:     /{id}
+    defaults: { _controller: FormGeneratorFormBundle:Default:addQuestion }
+
+form_generator_form_afficherTopic:
+    path:     /Topic/{id}
+    defaults: { _controller: FormGeneratorFormBundle:Default:afficherTopic }
+    requirements:
+        id: '\d+'
+>>>>>>> remotes/origin/VictorJPP
