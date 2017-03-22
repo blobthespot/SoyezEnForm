@@ -16,6 +16,23 @@
                 addDeleteLink($prototype);
                 $container.append($prototype);
 
+                // design
+                $prototype.find('label').addClass('control-label');
+                $prototype.find('input[type="text"]').addClass('form-control');
+
+                var $div = $prototype.find('input[type="checkbox"]').parent();
+                $div.addClass('checkbox');
+
+                var $label = $div.find('label');
+                var text = $label.text();
+                $label.html('');
+                $label.detach();
+
+                $div.contents().appendTo($label);
+                $label.appendTo($div);
+                $div.append(document.createTextNode(text));
+
+
                 $questionsContainer.append($prototype);
                 //Ajout des réponses dans la question:
                 var $answerContainer = $('#formgenerator_formbundle_topic_questions_'+ index +'_answers');
@@ -55,6 +72,7 @@
 
                 /*var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Réponse')
                     .replace(/__name__/g, $counter));*/
+
                 addDeleteLink($prototype);
                 $container.append($prototype);
             }
