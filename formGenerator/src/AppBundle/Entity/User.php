@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="app_users")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User implements AdvancedUserInterface, \Serializable
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Column(type="integer")
@@ -70,38 +70,27 @@ class User implements AdvancedUserInterface, \Serializable
     {
     }
 
+    /** @see \Serializable::serialize() */
     public function serialize()
     {
         return serialize(array(
-            // ...
-            $this->isActive
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
         ));
     }
+
+    /** @see \Serializable::unserialize() */
     public function unserialize($serialized)
     {
         list (
-            // ...
-            $this->isActive
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
             ) = unserialize($serialized);
-    }
-
-    public function isAccountNonExpired()
-    {
-        return true;
-    }
-
-    public function isAccountNonLocked()
-    {
-        return true;
-    }
-
-    public function isCredentialsNonExpired()
-    {
-        return true;
-    }
-
-    public function isEnabled()
-    {
-        return $this->isActive;
     }
 }
