@@ -25,7 +25,7 @@ class DefaultController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request){
+    public function createTopicAction(Request $request){
         $topic = new Topic();
 
         $form = $this->createForm(TopicType::class, $topic);
@@ -105,9 +105,7 @@ class DefaultController extends Controller
         return $this->resultatAction($note);
     }
         return $this->render('FormGeneratorFormBundle:Default:resTopic.html.twig',array(
-            "form"=>$form->createView(),
-            var_dump($result)
-            //"res"=>$res
+            "form"=>$form->createView()
         ));
 }
 
@@ -117,12 +115,36 @@ class DefaultController extends Controller
         ));
     }
 
-    public function allTopicAction(){
+    public function indexAction(){
         $allTopic = $this->getDoctrine()->getRepository('FormGeneratorFormBundle:Topic')->findAll();
         return $this->render('FormGeneratorFormBundle:Default:allTopic.html.twig',array(
             'topics'=>$allTopic,
             //var_dump($allTopic)
         ));
 
+    }
+
+
+    /**
+     * La fonction permet de données tous les résultats du formulaire sélectionné avec les noms des utilisateurs.
+     * @param $id
+     */
+    public function allresultsTopicAction($id){
+        $em = $this->getDoctrine()->getManager();
+        //Récupérer les données des resultats du formulaire courant
+        $results = $em->getRepository('FormGeneratorFormBundle:Result')->findByTopicId($id);
+        //Récupérer le topic utilisé
+        $topic = $em->getRepository('FormGeneratorFormBundle:Topic')->find($id);
+
+        $topicName = $topic->getName();
+        $nbQuestions = count($topic->getQuestions());
+        foreach($results as $result){
+            $data[] = $result->getName();
+        }
+        return $this->render('FormGeneratorFormBundle:Default:allresults.html.twig',array(
+            "results" => $results,
+            "name" => $topicName,
+            "nbQuestion" => $nbQuestions
+        ));
     }
 }

@@ -8,6 +8,12 @@ form_generator_form_afficherTopic:
     requirements:
         id: '\d+'
 
-form_generator_form_AllTopic:
-    path:     /alltopic
-    defaults: { _controller: FormGeneratorFormBundle:Default:allTopic }
+form_generator_form_createTopic:
+    path:     /createtopic
+    defaults: { _controller: FormGeneratorFormBundle:Default:createTopic }
+
+form_generator_form_allResults:
+    path:     /allresults/{id}
+    defaults: { _controller: FormGeneratorFormBundle:Default:allresultsTopic }
+    requirements:
+        id: '\d+'

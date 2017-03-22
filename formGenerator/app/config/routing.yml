@@ -6,3 +6,6 @@ app:
     type: annotation
 login:
     path: /login
+homepage:
+    path:     /
+    defaults: { _controller: FormGeneratorFormBundle:Default:index }

@@ -17,6 +17,20 @@
     color: black;
     text-align: center;
 }
+
+.topic{
+    background: grey;
+    padding: 5px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+    margin-bottom: 10px;
+}
+
+.topic .topic-name{
+    color: black;
+    font-size: 22px;
+}
 .form-question{
     background: grey;
     margin-top: 15px;
