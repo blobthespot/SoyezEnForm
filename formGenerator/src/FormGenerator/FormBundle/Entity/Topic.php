@@ -29,7 +29,7 @@ class Topic
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Question", mappedBy="question",cascade={"persist"}, orphanRemoval=true, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="Question", mappedBy="topic",cascade={"persist"}, orphanRemoval=true, fetch="EAGER")
      */
     private $questions;
 

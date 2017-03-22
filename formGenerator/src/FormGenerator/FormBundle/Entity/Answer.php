@@ -22,14 +22,8 @@ class Answer
     private $id;
 
     /**
-<<<<<<< HEAD
      * @ORM\ManyToOne(targetEntity="Question")
      * @ORM\JoinColumn(name="question_id", referencedColumnName="id", onDelete="CASCADE")
-=======
-     * @var int
-     *
-     * @ORM\Column(name="question_id", type="integer", unique=false)
->>>>>>> remotes/origin/VictorJPP
      */
     private $question;
 

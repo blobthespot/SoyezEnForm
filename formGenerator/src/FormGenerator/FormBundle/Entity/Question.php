@@ -43,11 +43,8 @@ class Question
     private $isMultiple;
 
     /**
-<<<<<<< HEAD
-     * @ORM\OneToMany(targetEntity="Answer", mappedBy="answer",cascade={"persist"}, orphanRemoval=true, fetch="EAGER")
-=======
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question",cascade={"persist"}, orphanRemoval=true, fetch="EAGER")
      * @ORM\OneToMany(targetEntity="Answer", mappedBy="question")
->>>>>>> 7d5582e4403cf407969f8095d5c7fe88f6dddb6a
      */
     private $answers;
 

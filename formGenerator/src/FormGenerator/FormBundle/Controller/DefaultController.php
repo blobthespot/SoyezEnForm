@@ -2,6 +2,7 @@
 
 namespace FormGenerator\FormBundle\Controller;
 
+use Symfony\Component\Form\FormBuilder;
 use FormGenerator\FormBundle\Entity\Topic;
 use FormGenerator\FormBundle\Form\QuestionType;
 use FormGenerator\FormBundle\Form\TopicType;
@@ -48,31 +49,27 @@ class DefaultController extends Controller
         return $this->render('FormGeneratorFormBundle:Default:form.html.twig',array('form' => $form->createView()));
 }
 
+    public function afficherTopicAction(Request $request,$id){
+        $em = $this->getDoctrine()->getManager();
 
-public function afficherTopicAction(Request $request,$id){
-        $res=[];
-        $em = $this->getDoctrine()
-            ->getManager();
-        $query = $em->createQuery('
-        SELECT q
-        FROM FormGeneratorFormBundle:Question q
-        WHERE q.topicId=:tId')
-            ->setParameter('tId',$id);//feth questions related to topic
-        $questions =$query->getResult();
-        foreach ($questions as $q){
-            $query = $em->createQuery('
-            SELECT answer
-            FROM FormGeneratorFormBundle:Answer answer 
-            WHERE answer.questionId=:qId')
-                ->setParameter('qId',$q->getId());//getch answers related to questions
-            $res[]=array(
-              "question"=>$q,
-                "reponses"=>$query->getResult()
-            );
-        }
+        $topic = $em->getRepository('FormGeneratorFormBundle:Topic')->find($id);
+
+        $questions = $topic->getQuestions();
+
         //create form
+        $form = $this->createFormBuilder();
+        foreach ($questions as $question){
+            $answers = $question->getAnswers();
+            $form->add($question->getId(),ChoiceType::class,array(
+                'label'=>$question->getQuestion(),
+                'choices'=>$answers,
+                'required'=>'true',
+                'expanded'=>'true',
+                'multiple'=>$question->getIsMultiple()//true => checkbox || false=> radio button
+            ));
+        }
 
-    $form = $this->createFormBuilder();
+    /*
     for ($i=0;$i<count($res);$i++){
 
         //tableau de reponse
@@ -80,30 +77,14 @@ public function afficherTopicAction(Request $request,$id){
         for ($j=0;$j<count($res[$i]["reponses"]);$j++){
             $a[$res[$i]["reponses"][$j]->getAnswer()]=$res[$i]["reponses"][$j]->getId();//$a[answer]=id || "answ"=>"id"
         }
-        /*$form->add('questions',CollectionType::class,array(
-           'entry_type' => ChoiceType::class,
-            'allow_add' => 'true',
-            'entry_options' => array(
-                'label'=>$res[$i]["question"]->getQuestion(),
-                'choices'=>$a,
-                'required'=>'true',
-                'expanded'=>'true',
-                'multiple'=>$res[$i]["question"]->getIsMultiple()//true => checkbox || false=> radio button
-            )
-        ));*/
-       $form->add($res[$i]["question"]->getId(),ChoiceType::class,array(
-            'label'=>$res[$i]["question"]->getQuestion(),
-            'choices'=>$a,
-            'required'=>'true',
-            'expanded'=>'true',
-            'multiple'=>$res[$i]["question"]->getIsMultiple()//true => checkbox || false=> radio button
-            //putain de doc de merde
-        ));
+
+
     }// FIN CREATE QUESTIONNAIRE
 
     $form->add("Check your privilege !",SubmitType::class);
     $form= $form->getForm();
     $form->handleRequest($request);
+
     //FORM SUBMIT
     if ($form->isSubmitted()){
         $note=0;
@@ -127,26 +108,20 @@ public function afficherTopicAction(Request $request,$id){
             }
         }
         return $this->resultatAction($note);
-    }
+    }*/
+    $form= $form->getForm();
     //END FORM SUBMIT
         return $this->render('FormGeneratorFormBundle:Default:resTopic.html.twig',array(
             "form"=>$form->createView(),
-            "res"=>$res
+            //"res"=>$res,
+            var_dump($topic->getName()),
+            var_dump($id)
         ));
 }
-public function resultatAction($note){
-    return $this->render('FormGeneratorFormBundle:Default:resultat.html.twig',array(
-        'note'=>$note
-    ));
-}
-    /*public function addQuestionAction(Request $request){
-        $form = $this->createFormBuilder()
-            ->add('Questions', QuestionType::class)
-            ->getForm();
 
-
-        return $this->render('FormGeneratorFormBundle:Default:questionsForm.html.twig',array(
-            'form' => $form->createView()
+    public function resultatAction($note){
+        return $this->render('FormGeneratorFormBundle:Default:resultat.html.twig',array(
+            'note'=>$note
         ));
-    }*/
+    }
 }
