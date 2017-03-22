@@ -4,3 +4,5 @@ form_generator_form:
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+login:
+    path: /login

@@ -24,7 +24,7 @@ class Answer
     /**
      * @var int
      *
-     * @ORM\Column(name="question_id", type="integer", unique=true)
+     * @ORM\Column(name="question_id", type="integer", unique=false)
      */
     private $questionId;
 
