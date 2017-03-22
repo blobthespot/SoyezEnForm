@@ -44,7 +44,9 @@ class DefaultController extends Controller
 
             $em->persist($topic);
             $em->flush();
-            return $this->redirect($this->generateUrl('form_generator_form_addQuestion'), array('value' => var_dump($_POST)));
+            return $this->redirectToRoute('form_generator_form_afficherTopic', array(
+                'id' => $topic->getId()
+            ));
         }
         return $this->render('FormGeneratorFormBundle:Default:form.html.twig',array('form' => $form->createView()));
 }
@@ -60,40 +62,33 @@ class DefaultController extends Controller
         $form = $this->createFormBuilder();
         foreach ($questions as $question){
             $answers = $question->getAnswers();
+            $answersString = [];
+            foreach ($answers as $answer){
+                $answersString[$answer->getAnswer()] = $answer->getId();
+            }
             $form->add($question->getId(),ChoiceType::class,array(
                 'label'=>$question->getQuestion(),
-                'choices'=>$answers,
+                'choices'=>$answersString,
                 'required'=>'true',
                 'expanded'=>'true',
                 'multiple'=>$question->getIsMultiple()//true => checkbox || false=> radio button
             ));
         }
+        $form->add("Valider votre formulaire !",SubmitType::class);
+        $form= $form->getForm();
+        $form->handleRequest($request);
 
-    /*
-    for ($i=0;$i<count($res);$i++){
-
-        //tableau de reponse
-        $a = [];//sert pour les réponses dans le form
-        for ($j=0;$j<count($res[$i]["reponses"]);$j++){
-            $a[$res[$i]["reponses"][$j]->getAnswer()]=$res[$i]["reponses"][$j]->getId();//$a[answer]=id || "answ"=>"id"
-        }
-
-
-    }// FIN CREATE QUESTIONNAIRE
-
-    $form->add("Check your privilege !",SubmitType::class);
-    $form= $form->getForm();
-    $form->handleRequest($request);
-
-    //FORM SUBMIT
-    if ($form->isSubmitted()){
-        $note=0;
-        $data = $form->getData();
-        for ($i=1;$i<=count($data);$i++){
-            $item = $data[$i];
-            if(is_array($item)){
-                foreach ($item as $tuple){
-                    $res = $this->getDoctrine()
+        if ($form->isSubmitted()){
+            $note=0;
+            foreach ($form->getData() as $AnswerId){
+                $formAnswer = $this->getDoctrine()->getRepository('FormGeneratorFormBundle:Answer')->find($AnswerId);
+                if ($formAnswer->getIsCorrect()){ $note += 1; }
+            }
+            /*for ($i=1;$i<=count($data);$i++){
+                $item = $data[$i];
+                if(is_array($item)){
+                    foreach ($item as $tuple){
+                        $res = $this->getDoctrine()
                         ->getRepository('FormGeneratorFormBundle:Answer')
                         ->find($tuple);
                     if ($res->getIsCorrect()) $note++;
@@ -106,16 +101,14 @@ class DefaultController extends Controller
                     ->find($item);
                 if ($res->getIsCorrect()) $note++;
             }
-        }
+        }*/
         return $this->resultatAction($note);
-    }*/
-    $form= $form->getForm();
+    }
+
     //END FORM SUBMIT
         return $this->render('FormGeneratorFormBundle:Default:resTopic.html.twig',array(
             "form"=>$form->createView(),
-            //"res"=>$res,
-            var_dump($topic->getName()),
-            var_dump($id)
+            //"res"=>$res
         ));
 }
 

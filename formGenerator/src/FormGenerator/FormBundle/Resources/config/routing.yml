@@ -7,7 +7,7 @@ form_generator_form_addQuestion:
     defaults: { _controller: FormGeneratorFormBundle:Default:addQuestion }
 
 form_generator_form_afficherTopic:
-    path:     /Topic/{id}
+    path:     /topic/{id}
     defaults: { _controller: FormGeneratorFormBundle:Default:afficherTopic }
     requirements:
         id: '\d+'
