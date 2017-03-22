@@ -17,21 +17,36 @@
                 $container.append($prototype);
 
                 // design
+                $prototype.addClass('row form-group');
+
+                var $cont = $prototype.children('div');
+                $cont.addClass('col-md-12');
+
+                var $contents = $cont.contents().detach();
+                $('<div class="row"><div class="col-md-6 cont1"></div><div class="col-md-6 cont2"></div></div>').appendTo($cont);
+                $contents.appendTo($cont.find('.cont1'));
+
+
+                $prototype.find('label').eq(0).remove();
+
+                $prototype.find('.btn.btn-danger').appendTo($cont.find('.cont2'));
+
                 $prototype.find('label').addClass('control-label');
                 $prototype.find('input[type="text"]').addClass('form-control');
 
-                var $div = $prototype.find('input[type="checkbox"]').parent();
-                $div.addClass('checkbox');
+                $prototype.find('input[type="checkbox"]').each(function() {
+                  var $div = $(this).parent();
+                  $div.addClass('checkbox');
 
-                var $label = $div.find('label');
-                var text = $label.text();
-                $label.html('');
-                $label.detach();
+                  var $label = $div.find('label');
+                  var text = $label.text();
+                  $label.html('');
+                  $label.detach();
 
-                $div.contents().appendTo($label);
-                $label.appendTo($div);
-                $div.append(document.createTextNode(text));
-
+                  $div.contents().appendTo($label);
+                  $label.appendTo($div);
+                  $div.append(document.createTextNode(text));
+                });
 
                 $questionsContainer.append($prototype);
                 //Ajout des réponses dans la question:
@@ -74,6 +89,26 @@
                     .replace(/__name__/g, $counter));*/
 
                 addDeleteLink($prototype);
+
+                // design
+                $prototype.find('label').eq(0).remove();
+
+                $prototype.find('textarea,input[type="text"]').addClass('form-control');
+
+                $prototype.find('input[type="checkbox"]').each(function() {
+                  var $div = $(this).parent();
+                  $div.addClass('checkbox');
+
+                  var $label = $div.find('label');
+                  var text = $label.text();
+                  $label.html('');
+                  $label.detach();
+
+                  $div.contents().appendTo($label);
+                  $label.appendTo($div);
+                  $div.append(document.createTextNode(text));
+                });
+
                 $container.append($prototype);
             }
 
