@@ -1,0 +1,16 @@
+{% extends 'master.html.twig' %}
+{% block contents %}
+    <div class="container-fluid topic-title">
+        <h1>Tout les topics</h1>
+    </div>
+    <ul>
+        {% for topic in topics %}
+            <div class="container-fluid topic">
+                <div class="col-md-6 topic-name">{{ topic.name }}</div>
+                <div class="col-md-3"><a href="{{ path("form_generator_form_afficherTopic", {'id': topic.id}) }}"><button type="button" class="btn btn-primary">Accèder à ce topic</button></a></div>
+                <div class="col-md-3"><a href="{{ path("form_generator_form_allResults", {'id': topic.id}) }}"><button type="button" class="btn btn-warning">Voir les scores</button></a></div>
+            </div>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

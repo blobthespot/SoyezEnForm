@@ -1,0 +1,22 @@
+{% extends 'master.html.twig' %}
+{% block contents %}
+    <div class="container-fluid all-results-title">
+        <h2>Tout les résultats du topic {{ name }}<h2>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Score</th>
+        </tr>
+        </thead>
+        <tbody>
+    {% for result in results %}
+        <tr>
+            <td>{{ result.name }}</td>
+            <td>{{ result.score }} / {{ nbQuestion }} </td>
+        </tr>
+    {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
