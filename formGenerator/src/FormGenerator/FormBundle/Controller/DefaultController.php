@@ -35,6 +35,11 @@ class DefaultController extends Controller
     ));
 }
 
+public function TopicsAction(Request $request){
+        $res=[];
+        $em = $this->getDoctrine()
+            ->getManager();
+}
 
 public function afficherTopicAction(Request $request,$id){
         $res=[];

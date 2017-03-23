@@ -1,0 +1,6 @@
+{% extends 'master.html.twig' %}
+{% block contents %}
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ form_errors(form) }}
+    {{ form_end(form) }}
+{% endblock %}
