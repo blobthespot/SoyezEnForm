@@ -1,6 +1,6 @@
         $(document).ready(function() {
             var $questionsContainer = $('div#formgenerator_formbundle_topic_questions');
-            var $addQuestion = $('<a href="#" id="add_question" class="btn btn-default">Ajouter une question</a>');
+            var $addQuestion = $('<div class="col-md-12 button-add-question"><a href="#" id="add_question" class="btn btn-default">Ajouter une question</a></div>');
 
             $questionsContainer.append($addQuestion);
 
@@ -13,42 +13,27 @@
             function addQuestion($container) {
                 var index = $questionsContainer.find(':input').length;
                 var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Question').replace(/__name__/g, index));
-                addDeleteLink($prototype);
+
                 $container.append($prototype);
 
-                // design
-                $prototype.addClass('row form-group');
-
-                var $cont = $prototype.children('div');
-                $cont.addClass('col-md-12');
-
-                var $contents = $cont.contents().detach();
-                $('<div class="row"><div class="col-md-6 cont1"></div><div class="col-md-6 cont2"></div></div>').appendTo($cont);
-                $contents.appendTo($cont.find('.cont1'));
-
-
+                var $contants = $('#formgenerator_formbundle_topic_questions_' + index);
+                //Remove first label
                 $prototype.find('label').eq(0).remove();
 
-                $prototype.find('.btn.btn-danger').appendTo($cont.find('.cont2'));
+                $contants.children('div').eq(0).addClass('col-md-7 form-question');
+                $contants.children('div').eq(1).addClass('col-md-5 form-checkbox');
+                $contants.children('div').eq(2).addClass('col-md-12');
 
-                $prototype.find('label').addClass('control-label');
-                $prototype.find('input[type="text"]').addClass('form-control');
-
-                $prototype.find('input[type="checkbox"]').each(function() {
-                  var $div = $(this).parent();
-                  $div.addClass('checkbox');
-
-                  var $label = $div.find('label');
-                  var text = $label.text();
-                  $label.html('');
-                  $label.detach();
-
-                  $div.contents().appendTo($label);
-                  $label.appendTo($div);
-                  $div.append(document.createTextNode(text));
+                $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+                $('#formgenerator_formbundle_topic_questions_' + index).children('div').eq(1).append($deleteLink);
+                $deleteLink.click(function(e) {
+                    $prototype.remove();
+                    e.preventDefault();
+                    return false;
                 });
 
                 $questionsContainer.append($prototype);
+
                 //Ajout des réponses dans la question:
                 var $answerContainer = $('#formgenerator_formbundle_topic_questions_'+ index +'_answers');
 
@@ -61,7 +46,7 @@
                     return false;
                 });
 
-                $('#formgenerator_formbundle_topic_questions').append($('#add_question'));
+                $('#formgenerator_formbundle_topic_questions').append($('.button-add-question'));
                 }
 
             function addDeleteLink($prototype) {

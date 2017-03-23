@@ -1,7 +1,17 @@
-.form-header{
-    background: grey;
+.wrapper{
+    margin-top: 90px;
+    background: gray;
     padding: 15px;
     border-radius: 10px;
+    border-style: solid;
+    border-color: black;
+}
+
+.form-header{
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 15px 5px;
+    padding: 15px;
 }
 .form-header-label{
     font-style: italic;
@@ -17,6 +27,18 @@
     color: black;
     text-align: center;
 }
+.form-question label{
+    margin-right: 5px;
+}
+.form-question input{
+    width: 65%;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+.form-checkbox input{
+    width:5%;
+    margin-right: 10%;
+}
 
 .topic{
     background: grey;
@@ -26,26 +48,24 @@
     border-color: black;
     margin-bottom: 10px;
 }
-
 .topic .topic-name{
     color: black;
     font-size: 22px;
 }
-.form-question{
-    background: grey;
-    margin-top: 15px;
-    padding: 15px;
-    border-radius: 10px;
-}
-.wrapper{
-    margin-top: 90px;
-}
-#form div:first-child{
-    width: 90%;
-    float: left;
-}
 
-#form div button{
-    float: right;
-    width: 10%;
+.all-results-title{
+    color: black;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-bottom: 15px;
+}
+.table-bordered{
+    border: 1px solid black;
+    color: black;
+}
+.table-bordered > thead > tr > th, .table-bordered > thead > tr > td{
+    border: 1px solid black;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+    border: 1px solid black;
 }
