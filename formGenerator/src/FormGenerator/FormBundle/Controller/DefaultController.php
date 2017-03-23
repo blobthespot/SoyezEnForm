@@ -76,7 +76,9 @@ class DefaultController extends Controller
                 'multiple'=>$question->getIsMultiple()//true => checkbox || false=> radio button
             ));
         }
-        $form->add("Valider votre formulaire !",SubmitType::class);
+        $form->add("Valider votre formulaire !",SubmitType::class,array(
+            'class' => 'col-md-12 btn btn-lg btn-primary'
+        ));
         $form= $form->getForm();
         $form->handleRequest($request);
         $result = new Result();

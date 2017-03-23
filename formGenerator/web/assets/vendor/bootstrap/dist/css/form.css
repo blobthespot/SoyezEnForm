@@ -1,7 +1,7 @@
 .wrapper{
     margin-top: 90px;
     background: gray;
-    padding: 15px;
+    padding: 5px 15px 70px 5px;
     border-radius: 10px;
     border-style: solid;
     border-color: black;
@@ -23,6 +23,7 @@
     color: black;
     border-radius: 10px;
 }
+
 .form-questions-label{
     color: black;
     text-align: center;
@@ -39,7 +40,13 @@
     width:5%;
     margin-right: 10%;
 }
-
+.save-button{
+    width: 35%;
+    margin-top: 15px;
+}
+.button-add-question{
+    margin-top: 15px;
+}
 .topic{
     background: grey;
     padding: 5px;

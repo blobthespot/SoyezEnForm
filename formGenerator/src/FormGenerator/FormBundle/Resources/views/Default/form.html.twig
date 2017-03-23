@@ -13,6 +13,9 @@
             {{ form_label(form.questions, 'Les questions', {'label_attr': {'class': 'form-questions-label col-md-12'}}) }}
             {{ form_widget(form.questions, {'attr': {'class': 'form-input-label col-md-10'}}) }}
         </div>
+        <div class="col-md-12">
+            {{ form_widget(form.save, {'attr': {'class': 'btn btn-lg btn-warning save-button'}}) }}
+        </div>
         {{ form_end(form) }}
         </section>
 {% endblock %}
